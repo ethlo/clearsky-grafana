@@ -1,0 +1,63 @@
+{
+  "name": "grafana",
+  "label": "Grafana",
+  "version": "1.0.0",
+  "description": "Lets Copilot chats read logs, metrics and dashboards of your environments with `grafana …`, read only, instead of a shell on servers.",
+  "clearsky": 1,
+  "entry": "source.mjs",
+  "area": "work",
+  "settings": {
+    "GRAFANA_INSTANCES": {
+      "label": "Grafana environments",
+      "hint": "One row per environment: its short name, and its address. Kept in your settings file only.",
+      "secret": false,
+      "pattern": "^\\s*[A-Za-z][\\w-]{0,30}=https?://[^\\s,]+(\\s*[\\s,]\\s*[A-Za-z][\\w-]{0,30}=https?://[^\\s,]+)*\\s*$",
+      "patternHint": "write each Grafana as name=https://address",
+      "type": "map",
+      "item": "test",
+      "valueItem": "https://grafana.test.example.com"
+    },
+    "GRAFANA_ASK": {
+      "label": "Ask every time for",
+      "hint": "Environments that ask in the chat before each read.",
+      "secret": false,
+      "type": "list",
+      "item": "prod",
+      "empty": "every name with \"prod\""
+    },
+    "GRAFANA_TOKENS": {
+      "label": "Viewer tokens (optional)",
+      "hint": "Not needed: log in below with your browser instead. If you can create a Grafana service account with the Viewer role, its token (name=glsa_…) is used instead of the login.",
+      "secret": true,
+      "pattern": "^\\s*[A-Za-z][\\w-]*=\\S+?(\\s*[\\s,]\\s*[A-Za-z][\\w-]*=\\S+?)*\\s*$",
+      "patternHint": "write each token as name=token"
+    }
+  },
+  "enabledWhen": [
+    "GRAFANA_INSTANCES"
+  ],
+  "hosts": [],
+  "clis": [],
+  "secrets": [
+    {
+      "key": "GRAFANA_TOKENS",
+      "kind": "token",
+      "note": "optional Viewer service-account tokens; else your browser login"
+    },
+    {
+      "kind": "web-session",
+      "note": "each environment's login cookie, in ~/.config/clearsky/grafana-sessions.json"
+    }
+  ],
+  "files": [
+    "~/.config/clearsky/grafana-sessions.json"
+  ],
+  "doors": [
+    {
+      "name": "grafana",
+      "about": "reads logs, metrics and dashboards as you, read only; environments that ask (prod) ask in the chat each time"
+    }
+  ],
+  "note": "Reaches the Grafana addresses you set (yours, kept in your settings only). Secrets it knows the shape of are removed from what comes back, and every call is in Copilot's changes.",
+  "outside": "It reads Grafana with your login for chats that can't hold it, which is what a door is for."
+}
