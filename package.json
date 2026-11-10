@@ -1,6 +1,6 @@
 {
   "name": "clearsky-grafana",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Clearsky plugin: Copilot chats read Grafana logs and metrics, read only, through a door",
   "type": "module",
   "scripts": {

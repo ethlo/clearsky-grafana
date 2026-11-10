@@ -1,7 +1,7 @@
 {
   "name": "grafana",
   "label": "Grafana",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lets Copilot chats read logs, metrics and dashboards of your environments with `grafana …`, read only, instead of a shell on servers.",
   "clearsky": 1,
   "entry": "source.mjs",
@@ -11,6 +11,7 @@
       "label": "Grafana environments",
       "hint": "One row per environment: its short name, and its address. Kept in your settings file only.",
       "secret": false,
+      "team": true,
       "pattern": "^\\s*[A-Za-z][\\w-]{0,30}=https?://[^\\s,]+(\\s*[\\s,]\\s*[A-Za-z][\\w-]{0,30}=https?://[^\\s,]+)*\\s*$",
       "patternHint": "write each Grafana as name=https://address",
       "type": "map",
@@ -21,6 +22,7 @@
       "label": "Ask every time for",
       "hint": "Environments that ask in the chat before each read.",
       "secret": false,
+      "team": true,
       "type": "list",
       "item": "prod",
       "empty": "every name with \"prod\""
